@@ -1,12 +1,7 @@
 import json
-
 import requests, uuid
-from rich import pretty, print
 import signing
-pretty.install()
 
-import urllib3
-urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
 class Reddit:

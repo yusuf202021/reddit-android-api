@@ -112,6 +112,8 @@ class Reddit:
         self.token = f"{access_token_response.json().get('token_type').title()} {access_token_response.json().get('access_token')}"
         return self.token
 
-reddit = Reddit()
-reddit.register("email@gmail.com", "username", "124124wrqrqwr")
-print(reddit.get_basic_access_token())
+if __name__ == "__main__":
+    reddit = Reddit()
+    reddit.register("email@gmail.com", "username", "124124wrqrqwr")
+    print(reddit.get_basic_access_token())
+

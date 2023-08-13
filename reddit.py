@@ -1,4 +1,5 @@
-import json
+import json, string
+import random
 
 import requests
 import uuid
@@ -11,9 +12,10 @@ pretty.install()
 
 class Reddit:
 
-    def __init__(self):
+    def __init__(self, proxies = None):
         self.token = ""
         self.session = requests.Session()
+        self.session.proxies = proxies
         self.device_id = str(uuid.uuid4())
         self.adversary_id = str(uuid.uuid4())
         self.x_reddit_loid = ""
@@ -58,7 +60,7 @@ class Reddit:
         )
         assert register_response.ok, (f"{self.__class__.__name__}.register():" +
                                       f"{register_response.json().get('error', {}).get('explanation')}")
-
+        print(register_response.json())
     def verify_token(self):
         verify_token_response = self.session.get(
             "https://oauth.reddit.com/api/v1/me?raw_json=1&feature=link_preview&sr_detail=true&expand_srs=true&from_detail=true&api_type=json&raw_json=1&always_show_media=1",
@@ -116,6 +118,10 @@ class Reddit:
         return self.token
 
 
-reddit = Reddit()
-reddit.register("email@gmail.com", "useqwrrname", "124124wrqrqwr")
-print(reddit.get_basic_access_token())
+reddit = Reddit(proxies={"https": "http://mimablxa:x9gl9101qx0p@45.155.68.129:8133"})
+
+username = "".join(random.choice(string.ascii_letters) for i in range(12))
+mail = f"{username}@gmail.com"
+password = "".join(random.choice(string.ascii_letters) for i in range(12)).title()
+print(username, mail, password) # asWSOrZoSlOl asWSOrZoSlOl@gmail.com Dmcdqygilrey
+reddit.register(mail, username, password)
